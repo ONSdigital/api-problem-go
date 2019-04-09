@@ -37,5 +37,4 @@ func WriteResponse(details Details, rw http.ResponseWriter) {
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	return
 }
