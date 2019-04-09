@@ -32,6 +32,10 @@ func WriteResponse(details Details, rw http.ResponseWriter) {
 	rw.Header().Set("Content-Type", "application/problem+json")
 	rw.Header().Set("Content-Language", "en")
 	rw.WriteHeader(details.Status)
-	rw.Write(pr)
+	if _, err = rw.Write(pr); err != nil {
+		log.Printf(`event="Error writing problem response" error="%v"`, err)
+		rw.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	return
 }
