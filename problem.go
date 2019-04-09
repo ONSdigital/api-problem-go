@@ -22,7 +22,7 @@ type Details struct {
 func WriteResponse(details Details, rw http.ResponseWriter) {
 	pr, err := json.Marshal(&details)
 	if err != nil {
-		log.Printf(`event="Error writing problem reponse" error="%v"`, err)
+		log.Printf(`event="Error writing problem response" error="%v"`, err)
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}

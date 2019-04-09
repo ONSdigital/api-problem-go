@@ -9,6 +9,22 @@ import (
 	problem "github.com/ONSdigital/problem-go"
 )
 
+func ExampleWriteResponse() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.ContentLength == 0 {
+			problem.WriteResponse(problem.Details{
+				Type:   "https://example.com/help#bad-body",
+				Title:  "Problem parsing request body",
+				Status: http.StatusBadRequest,
+				Detail: "No content was received for the request body. Please check your request and try again",
+			}, w)
+			return
+		}
+
+		// Otherwise other processing ...
+	})
+}
+
 // Use a global for the content written as the ResponseWriter interface won't
 // let us write directly to the underlying mock
 var written []byte
